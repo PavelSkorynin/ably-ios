@@ -507,7 +507,7 @@ ART_TRY_OR_MOVE_TO_FAILED_START(self) {
     } else if (![self shouldQueueEvents]) {
         ARTStatus *channelStatus = status;
         if (!channelStatus) {
-            channelStatus = [self defaultError];
+            channelStatus = stateChange.reason ? [ARTStatus state:ARTStateError info:stateChange.reason] : [self defaultError];
         }
         [self failQueuedMessages:channelStatus];
         // For every Channel
@@ -1281,7 +1281,7 @@ ART_TRY_OR_MOVE_TO_FAILED_START(self) {
     }
 
     if (error.type != ARTRealtimeTransportErrorTypeOther) {
-        [self transition:ARTRealtimeDisconnected];
+        [self transition:ARTRealtimeDisconnected withErrorInfo:[ARTErrorInfo createFromNSError:error.error]];
     } else {
         [self transition:ARTRealtimeFailed withErrorInfo:[ARTErrorInfo createFromNSError:error.error]];
     }
