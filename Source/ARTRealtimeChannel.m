@@ -252,7 +252,7 @@ ART_TRY_OR_MOVE_TO_FAILED_START(_realtime) {
         case ARTRealtimeChannelFailed:
         {
             if (cb) {
-                cb(self.errorReason ? [ARTStatus state:ARTStateError info:self.errorReason] : statusInvalidChannel);
+                cb(self.errorReason_nosync ? [ARTStatus state:ARTStateError info:self.errorReason_nosync] : statusInvalidChannel);
             }
             break;
         }
