@@ -243,16 +243,10 @@ ART_TRY_OR_MOVE_TO_FAILED_START(_realtime) {
         case ARTRealtimeChannelSuspended:
         case ARTRealtimeChannelDetaching:
         case ARTRealtimeChannelDetached:
-        {
-            if (cb) {
-                cb(statusInvalidChannel);
-            }
-            break;
-        }
         case ARTRealtimeChannelFailed:
         {
             if (cb) {
-                cb(self.errorReason_nosync ? [ARTStatus state:ARTStateError info:self.errorReason_nosync] : statusInvalidChannel);
+                cb(statusInvalidChannel);
             }
             break;
         }

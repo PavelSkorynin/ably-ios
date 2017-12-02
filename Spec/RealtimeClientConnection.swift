@@ -2978,7 +2978,11 @@ class RealtimeClientConnection: QuickSpec {
                             guard let error = error else {
                                 fail("Error is nil"); done(); return
                             }
-                            expect(error.message).to(contain("host unreachable"))
+                            expect(error.message).to(contain("invalid channel state"))
+                            guard let reason = channel.errorReason else {
+                                fail("Reason is nil"); done(); return
+                            }
+                            expect(reason.message).to(contain("host unreachable"))
                             done()
                         }
                     }
